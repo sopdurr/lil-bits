@@ -72,7 +72,7 @@ const DateAndGuests = () => {
     if (event.target.value.length >= 5) {
       setButton(false);
     } else {
-      setButton(true)
+      setButton(true);
     }
   };
 
@@ -88,12 +88,12 @@ const DateAndGuests = () => {
   };
 
   const reservation = () => {
-    let order= JSON.parse(localStorage.getItem('order'));
+    let order = JSON.parse(localStorage.getItem('order'));
     if (!order) {
-     order = [];
+      order = [];
     }
     order.push(guests);
-    order.push(startDate); 
+    order.push(startDate);
     order.push(email);
     localStorage.setItem('order', JSON.stringify(order));
     routeChange();

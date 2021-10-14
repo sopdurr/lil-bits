@@ -42,7 +42,7 @@ const SliderImg = styled.img`
   height: 265px; ;
 `;
 
-const Dot = styled.div`
+const Dot = styled.button`
   position: absolute;
   bottom: 10px;
   left: 50%;
@@ -54,6 +54,9 @@ const Dot = styled.div`
   cursor: pointer;
   box-shadow: 0px 0px 5px #fff;
   :hover {
+    background-color: #717171;
+  }
+  :active {
     background-color: #717171;
   }
 `;

@@ -8,11 +8,35 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
+const Button = styled.button`
+  text-align: center;
+  background-color: #3e6053;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #c16757;
+  margin: 0.3em 0.3em 0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  transition: all 0.2s;
+  :hover {
+    color: #000000;
+    background-color: #c16757;
+    border: 0.1em solid #3e6053;
+  }
+`;
+
 const Image = styled.img`
   height: 50px;
 `;
 
 const Header = styled.h2`
+  text-align: center;
+`;
+
+const SubHeader = styled.h5`
   text-align: center;
 `;
 
@@ -31,12 +55,23 @@ const PickDrink = () => {
     setDrink(result.data);
   };
 
-  const reservation = (drink) => {
+  const [selected, setSelected] = useState([]);
+
+  const handleChange = (event) => {
+    const { checked, value } = event.currentTarget;
+
+    setSelected((prev) =>
+      checked ? [...prev, value] : prev.filter((val) => val !== value)
+    );
+    console.log(selected);
+  };
+
+  const reservation = () => {
     let order = JSON.parse(localStorage.getItem('order'));
     if (!order) {
       order = [];
     }
-    order.push(drink.name);
+    order.push({ Beverage: selected });
     localStorage.setItem('order', JSON.stringify(order));
     setDrink(null);
     routeChange();
@@ -50,6 +85,11 @@ const PickDrink = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Header>Beverages</Header>
+        <SubHeader>
+          <Button type='button' onClick={reservation}>
+            Choose drinks
+          </Button>
+        </SubHeader>
         <Box sx={{ height: '590px', overflow: 'scroll' }}>
           {drink.map((drink) => (
             <Paper
@@ -69,9 +109,15 @@ const PickDrink = () => {
                   </Avatar>
                 </Grid>
                 <Grid item xs zeroMinWidth>
-                  <Typography noWrap onClick={() => reservation(drink)}>
-                    <span style={{ display: 'block' }}>{drink.name}</span>
-                    <span>{drink.tagline}</span>
+                  <Typography noWrap>
+                    <label htmlFor={drink.id}>{drink.name}</label>
+                    <input
+                      checked={selected.some((val) => val === drink.name)}
+                      onChange={handleChange}
+                      value={drink.name}
+                      id={drink.id}
+                      type='checkbox'
+                    />
                   </Typography>
                 </Grid>
               </Grid>

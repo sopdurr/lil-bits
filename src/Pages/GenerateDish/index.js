@@ -1,1 +1,1 @@
-export {default} from './GenerateDish';
+export { default } from './GenerateDish';
