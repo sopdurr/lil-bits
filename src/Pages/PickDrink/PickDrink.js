@@ -63,7 +63,7 @@ const PickDrink = () => {
     setSelected((prev) =>
       checked ? [...prev, value] : prev.filter((val) => val !== value)
     );
-    console.log(selected);
+ 
   };
 
   const reservation = () => {
@@ -71,7 +71,7 @@ const PickDrink = () => {
     if (!order) {
       order = [];
     }
-    order.push({ Beverage: selected });
+    order.push(selected);
     localStorage.setItem('order', JSON.stringify(order));
     setDrink(null);
     routeChange();

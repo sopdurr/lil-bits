@@ -93,7 +93,7 @@ const DateAndGuests = () => {
       order = [];
     }
     order.push(guests);
-    order.push(startDate);
+    order.push(startDate.toGMTString());
     order.push(email);
     localStorage.setItem('order', JSON.stringify(order));
     routeChange();
